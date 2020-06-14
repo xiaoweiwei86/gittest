@@ -42,7 +42,7 @@
 <div class="ssjg">
     <c:forEach items="${list}" var="ed">
         <li class="ssjgli">
-            <a href="show?id=${ed.id}" target="_blank" title="点击查看详情">${ed.title}</a>
+            <a href="${pageContext.request.contextPath }/show/${ed.id}" target="_blank" title="点击查看详情">${ed.title}</a>
             <br/><br/>
             <p>产品类别：${ed.productClass}&nbsp;产品型号： ${ed.productModel}&nbsp; 主凶件： ${ed.primePiece} &nbsp;
                 主凶类别： ${ed.primeCategory} </p>
@@ -86,10 +86,10 @@
 <script>
     $("#search_btn").click(function () {
         var keywords = $('#keywords').val().trim().replace(/\s/g, "");
-        $(window).attr('location', 'search?keywords=' + keywords);
+        $(window).attr('location', '${pageContext.request.contextPath }/search?keywords=' + keywords);
     });
     $("#search").click(function () {
         var keywords = $('#keywords').val().trim().replace(/\s/g, "");
-        $(window).attr('location', 'search?keywords=' + keywords);
+        $(window).attr('location', '${pageContext.request.contextPath }/search?keywords=' + keywords);
     });
 </script>

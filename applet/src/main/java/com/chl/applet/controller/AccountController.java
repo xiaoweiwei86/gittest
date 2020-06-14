@@ -63,7 +63,7 @@ public class AccountController {
                 Integer num = experienceDatabaseService.findCheckNum(teamId);
                 session.setAttribute("NUM", num);
                 if (edId != 0) {
-                    return "redirect:/show?id=" + edId;
+                    return "redirect:/show/" + edId;
                 } else if (user.getRole().getNickName().equals("经验数据库管理员")) {
                     return "redirect:/ed/myself?userId=" + user.getId();
                 } else if (user.getTeam().equals("技术管理部")) {

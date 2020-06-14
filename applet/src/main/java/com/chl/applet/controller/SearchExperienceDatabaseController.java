@@ -7,6 +7,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,7 +26,7 @@ public class SearchExperienceDatabaseController {
     }
 
     @GetMapping("search")
-    public String search(Map<String, Object> map, @RequestParam String keywords, @RequestParam(defaultValue = "1") Integer pageNum) {
+    public String search(Map<String, Object> map, @RequestParam("keywords") String keywords, @RequestParam(defaultValue = "1") Integer pageNum) {
         PageHelper.startPage(pageNum, pageSize);
         List<ExperienceDatabase> list = experienceDatabaseService.findByKeywords(keywords, "", "",1,null);
         PageInfo<ExperienceDatabase> page = new PageInfo<>(list);
@@ -35,8 +36,8 @@ public class SearchExperienceDatabaseController {
         return "search_jysjk/search";
     }
 
-    @GetMapping("show")
-    public String show(Map<String, Object> map, @RequestParam Integer id) {
+    @GetMapping("show/{id}")
+    public String show(Map<String, Object> map, @PathVariable("id") Integer id) {
         ExperienceDatabase ed = experienceDatabaseService.findOneById(id);
         map.put("ed", ed);
         return "search_jysjk/show";
