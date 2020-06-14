@@ -4,13 +4,12 @@ server:
 spring:
   datasource:
     username: root
-    password: root
+    password: 123
     url: jdbc:mysql://127.0.0.1:3306/henglong?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
 logging:
-  file: e:/springboot.log
   level:
     com:
       chl:
@@ -21,4 +20,4 @@ logging:
 upload-dir: D:\Apache Software Foundation\Tomcat 9.0\webapps\img
 img-url: http://localhost/img
 web-url: http://localhost:8080/ed/
-asset-url: http://localhost:80 80/handover_order/
+asset-url: http://localhost:8080/handover_order/
