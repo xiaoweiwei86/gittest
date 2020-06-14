@@ -1,0 +1,261 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+
+
+ul {
+	list-style: none;
+}
+body {
+	 padding-top: 70px;
+}
+input{
+	padding: 0;
+	margin: auto;
+}
+.all {
+	height: auto;
+}
+
+.hlhead {
+	height: 60px;
+	padding-top: 3px;
+	padding-right: 40px;
+	padding-left: 40px;
+}
+
+.headli {
+	list-style-image: none;
+	list-style-type: none;
+	float: right;
+	padding-top: 14px;
+	font-size: 14px;
+}
+
+.headli a {
+	text-decoration: none;
+	color:#000000;
+}
+
+.headli a:hover{
+	color:#0072E3;
+}
+
+.search {
+	padding-bottom: 40px;
+	padding-top: 60px;
+	text-align: center;
+}
+.searchall{
+	width:736px;
+	height: 40px;
+	margin: 0 auto;
+}
+
+.searchinput{
+	float: left;
+	width: 650px;
+}
+.searchinput input{
+	height: 34px;
+	width: 650px;
+	line-height:34px;	
+}
+
+.searchbutton {
+	line-height: 38px;
+	width:80px;
+	float: right;
+}
+.searchbutton input{	
+	width:80px;
+	height: 38px;	
+}
+.bookimg {
+	text-align:center;
+}
+
+.searchlogo {
+	font-size:18px;
+	padding-bottom: 20px;
+}
+
+
+
+.hlfoot {
+	position:absolute;
+	text-align:center;
+	padding-top: 40px;
+	bottom:50px;
+	width: 100%;
+}
+
+.searchinfo{
+	float:left;
+	padding-left:50px;
+}
+.searchinfo input{
+	width:500px;
+	height:30px;
+}
+	
+.imglogo {
+	display:block;
+	float:left;
+}
+
+.ssjg{
+	width: 65%;
+	min-height: calc(100vh - 70px);
+	padding-left: 100px;
+	padding-top:20px;
+	display:block;
+	float: left;
+}
+
+.ssjgli{
+	list-style-image: none;
+	list-style-type: none;
+	padding-bottom:20px;
+	width:90%;
+	color:#000;
+}
+
+.ssjgli p{
+	font-size: 13px;
+}
+
+.ssjgli p:hover{
+	color:#333333;
+}
+
+
+.ssjg a{
+	text-decoration: underline;
+	color:#0033CC;
+	font-size:16px; 
+}
+
+.ssjg a:hover{
+	color: #FF0000;
+}
+
+.ssjg_R {
+	display:block;
+	float:right;
+	width:25%;
+	padding-right:25px;
+	border-left-width: 1px;
+}
+
+.tjli{
+	list-style-image: none;
+	list-style-type: none;
+	padding-bottom:10px;
+	padding-left:10px;
+	padding-top:20px;
+	padding-right:20px;
+	color:#333333;
+}
+.tjli a{
+	text-decoration: none;
+	font-size:14px;
+	color:#006600; 
+}
+.tjli a:hover{
+	color: #FF0000;
+}
+
+.page {
+	clear: both;
+	padding-left: 100px;
+	padding-bottom: 10px;
+	font-size: 14px;
+}
+
+.page a {
+	text-decoration: none;
+	color:#0033CC	
+}
+
+.page a:hover{
+	color: #FF0000;
+}
+
+.show {
+	margin: 0 auto;
+	width: 65%;
+	color: #000;
+}
+
+.showtitle{
+	text-align: center;
+}
+
+.showlogo {
+	width: auto;
+}
+
+.showhead {
+	height: 60px;
+	padding-top: 8px;
+	padding-right: 30px;
+	padding-left: 30px;
+}
+.showmatter{
+	font-size: 14px;	
+}
+
+.wtyy{
+	
+}
+.wenti{	
+	padding-top:20px;
+	padding-bottom:20px;
+
+}
+.yuanyin{
+	padding-top:20px;
+	padding-bottom:20px;
+	
+}
+.cuoshi{
+	
+}
+.lscs{
+	padding-top:20px;
+	padding-bottom:20px;
+	
+}
+.zscs{
+	padding-top:20px;
+	padding-bottom:20px;
+	
+}
+.jyzj{
+	padding-top:20px;
+	padding-bottom:20px;
+}
+.showfoot{
+	position:relative;
+	margin: 0 auto;
+	text-align:center;
+	width: 100%;
+	font-size:12px;
+	display: flex;
+    align-items: center; /*定义body的元素垂直居中*/
+    justify-content: center; /*定义body的里的元素水平居中*/
+}
+
+td{
+	width: auto;
+	height: 30px;
+}
+.value{
+	width:auto;
+}
+.error{
+	font-size:12px;
+	color:red;
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chl.applet.dao.CommentDao">
+    <resultMap id="comment" type="Comment">
+        <id property="id" column="id" javaType="Integer"/>
+        <result property="userId" column="user_id"/>
+        <result property="edId" column="ed_id"/>
+        <result property="dailyId" column="daily_id"/>
+        <result property="handoverOrderId" column="handover_order_id"/>
+        <association property="user" select="com.chl.applet.dao.UserDao.selectOne" column="user_id"/>
+        <association property="experienceDatabase" select="com.chl.applet.dao.ExperienceDatabaseDao.selectOneById" column="ed_id"/>
+        <association property="daily" select="com.chl.applet.dao.DailyDao.selectOne" column="daily_id"/>
+        <association property="handoverOrder" select="com.chl.applet.dao.HandoverOrderDao.selectOne" column="handover_order_id"/>
+    </resultMap>
+    <select id="selectAll" resultMap="comment">
+        select * from henglong.comment
+    </select>
+
+    <select id="selectOne" parameterType="Integer" resultMap="comment">
+        select * from henglong.comment where id=#{id}
+    </select>
+
+    <select id="selectByUserId" parameterType="Integer" resultMap="comment">
+        select * from henglong.comment where user_id=#{userId}
+    </select>
+
+    <select id="selectByEdId" parameterType="Integer" resultMap="comment">
+        select * from henglong.comment where ed_id=#{edId}
+    </select>
+
+    <select id="selectByDailyId" parameterType="Integer" resultMap="comment">
+        select * from henglong.comment where daily_id=#{dailyId}
+    </select>
+
+    <select id="selectByHandoverOrderId" parameterType="Integer" resultMap="comment">
+        select * from henglong.comment where handover_order_id=#{handoverOrderId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" parameterType="Comment">
+        insert into henglong.comment(user_id, ed_id, daily_id, handover_order_id,content, create_time, alter_time) VALUES (
+        #{userId},#{edId},#{dailyId},#{handoverOrderId},#{content},#{createTime},#{alterTime})
+    </insert>
+    <delete id="deleteByEdId" parameterType="Integer">
+        delete from henglong.comment where ed_id=#{edId}
+    </delete>
+    <delete id="deleteByDailyId" parameterType="Integer">
+        delete from henglong.comment where daily_id=#{dailyId}
+    </delete>
+</mapper>

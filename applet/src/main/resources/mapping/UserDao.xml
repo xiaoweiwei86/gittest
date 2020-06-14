@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chl.applet.dao.UserDao">
+    <resultMap id="user" type="User">
+        <id property="id" column="id" javaType="Integer"/>
+        <result property="roleId" column="role_id"/>
+        <association property="role" select="com.chl.applet.dao.RoleDao.selectById" column="role_id"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="user">
+        select * from henglong.user
+    </select>
+
+    <select id="selectOne" parameterType="Integer" resultMap="user">
+        select * from henglong.user where id=#{id}
+    </select>
+
+    <select id="search" parameterType="Object" resultType="user">
+        select * from henglong.user where 1=1
+            <if test="key!='' and key!=null">
+                and (user_id like concat("%",#{key},"%") or
+                 real_name like concat("%",#{key},"%") or
+                 username like concat("%",#{key},"%"))
+            </if>
+            <if test="teamId!=null">
+                and team_id=#{teamId}
+            </if>
+    </select>
+
+    <select id="selectByRoleId" parameterType="Integer" resultMap="user">
+        select * from henglong.user where role_id=#{roleId}
+    </select>
+
+    <select id="selectByTeamId" parameterType="Integer" resultMap="user">
+        select * from henglong.user where team_id=#{teamId}
+    </select>
+
+    <select id="selectByLoginName" parameterType="String" resultMap="user">
+        select * from henglong.user where user_id=#{loginName} or username=#{loginName}
+    </select>
+
+    <select id="selectByRealName" parameterType="String" resultMap="user">
+        select * from henglong.user where real_name like concat("%",#{realName},"%")
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" parameterType="User">
+        insert into henglong.user (user_id,role_id,username, password, real_name, team_id, team,user_img, phone,email, create_time) values (
+            #{userId},#{roleId},#{username},#{password},#{realName},#{teamId},#{team},#{userImg},#{phone},#{email},#{createTime}
+        )
+    </insert>
+    <update id="update" parameterType="User">
+        update henglong.user set
+         user_id =#{userId},role_id=#{roleId},username=#{username},password=#{password},real_name=#{realName},team_id=#{teamId},team=#{team},user_img=#{userImg},phone=#{phone},email=#{email},out_time=#{outTime} where id=#{id}
+    </update>
+
+    <update id="quit" parameterType="User">
+        update henglong.user set out_time=#{outTime} where id=#{id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        delete from henglong.user where id=#{id}
+    </delete>
+</mapper>

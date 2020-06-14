@@ -1,0 +1,11 @@
+.showfoot{
+	position:relative;
+	margin: 0 auto;
+	text-align:center;
+	width: 100%;
+	height:40px;
+	display: flex;
+	font-size:12px;
+    align-items: center; /*定义body的元素垂直居中*/
+    justify-content: center; /*定义body的里的元素水平居中*/
+}

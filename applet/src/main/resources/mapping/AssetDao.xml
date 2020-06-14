@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chl.applet.dao.AssetDao">
+    <resultMap id="asset" type="Asset">
+        <id property="id" column="id" javaType="Integer"/>
+        <result property="userId" column="user_id"/>
+        <result property="categoryId" column="category_id"/>
+        <association property="user" select="com.chl.applet.dao.UserDao.selectOne" column="user_id"/>
+        <association property="categoryAsset" select="com.chl.applet.dao.CategoryAssetDao.selectOne" column="category_id"/>
+    </resultMap>
+    <select id="selectAll" resultMap="asset">
+        select * from henglong.asset
+    </select>
+
+    <select id="selectOne" parameterType="Integer" resultMap="asset">
+        select * from henglong.asset where id=#{id}
+    </select>
+
+    <select id="selectByIds" parameterType="Object" resultMap="asset">
+        select * from henglong.asset where id in
+          <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+             #{item}
+            </foreach>
+    </select>
+
+    <select id="selectByNumber" parameterType="String" resultMap="asset">
+        select * from henglong.asset where number=#{number}
+    </select>
+
+    <select id="search" parameterType="Object" resultMap="asset">
+        select * from henglong.asset where 1=1
+        <if test="keywords!=''">
+            and (number like concat("%",#{keywords},"%") or
+                name like concat("%",#{keywords},"%") or
+                model like concat("%",#{keywords},"%") or
+                specification like concat("%",#{keywords},"%") or
+                manufacturer_country like concat("%",#{keywords},"%") or
+                manufacturing_number like concat("%",#{keywords},"%") or
+                custodian like concat("%",#{keywords},"%") or
+                controlled_state like concat("%",#{keywords},"%") or
+                quality_situation like concat("%",#{keywords},"%") or
+                affiliation like concat("%",#{keywords},"%") or
+                abnormal like concat("%",#{keywords},"%") or
+                remarks like concat("%",#{keywords},"%")
+               )
+        </if>
+         <if test="team!=''">
+            and  using_team=#{team}
+         </if>
+        <if test="categoryId!=null">
+            and  category_id=#{categoryId}
+        </if>
+    </select>
+
+    <select id="selectByTeam" parameterType="String" resultMap="asset">
+        select * from henglong.asset where using_team=#{team}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" parameterType="Asset">
+        insert into henglong.asset(user_id, number, category_id, name, model, specification, amount, manufacturer_country, original_value, manufacturing_number, start_using_date, payment_receiving_date, using_team, custodian, controlled_state, quality_situation, affiliation, abnormal, remarks, add_time)
+        VALUES (#{userId},#{number},#{categoryId},#{name},#{model},#{specification},#{amount},#{manufacturerCountry},#{originalValue},#{manufacturingNumber},#{startUsingDate},#{paymentReceivingDate},#{usingTeam},#{custodian},#{controlledState},#{qualitySituation},#{affiliation},#{abnormal},#{remarks},#{addTime})
+    </insert>
+
+    <update id="update" parameterType="Asset">
+        update henglong.asset set user_id=#{userId},number=#{number},category_id=#{categoryId},name=#{name},model=#{model},specification=#{specification},amount=#{amount},manufacturer_country=#{manufacturerCountry},original_value=#{originalValue},manufacturing_number=#{manufacturingNumber},start_using_date=#{startUsingDate},
+        payment_receiving_date=#{paymentReceivingDate},using_team=#{usingTeam},custodian=#{custodian},controlled_state=#{controlledState},quality_situation=#{qualitySituation}, affiliation=#{affiliation}, abnormal=#{abnormal}, remarks=#{remarks}, update_time=#{updateTime}
+         where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete from henglong.daily where id=#{id}
+    </delete>
+
+</mapper>

@@ -1,0 +1,23 @@
+server:
+  port: 80
+
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/henglong?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+logging:
+  level:
+    com:
+      chl:
+        applet:
+          dao:  debug
+
+#自定义属性
+upload-dir: E:\Apache Software Foundation\Tomcat 9.0\webapps\img
+img-url: http://192.168.0.52/img
+web-url: http://192.168.0.52/chl_applet/ed/
+asset-url: http://192.168.0.52/chl_applet/handover_order/

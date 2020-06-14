@@ -1,0 +1,34 @@
+spring:
+  profiles:
+    active: dev
+
+  mvc:
+    view:
+      prefix: /WEB-INF/pages/
+      suffix: .jsp
+  mail:
+    host: smtp.exmail.qq.com
+    port: 25
+    username: xiaoweiwei@chl.com.cn
+    password: Weiwei8610
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+mybatis:
+  mapper-locations: classpath:mapping/*Dao.xml
+  type-aliases-package: com.chl.applet.entity
+  config-location: classpath:mybatis/mybatis-config.xml
+
+pagehelper:
+  helper-dialect: mysql
+  offset-as-page-num: true
+  row-bounds-with-count: true
+  reasonable: true
+  page-size-zero: true
+  support-methods-arguments: false

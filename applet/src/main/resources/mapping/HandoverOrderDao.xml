@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chl.applet.dao.HandoverOrderDao">
+    <resultMap id="handoverOrder" type="HandoverOrder">
+        <id property="id" column="id" javaType="Integer"/>
+        <result property="userId" column="user_id"/>
+        <association property="user" select="com.chl.applet.dao.UserDao.selectOne" column="user_id"/>
+    </resultMap>
+    <select id="selectAll" resultMap="handoverOrder">
+        select * from henglong.handover_order
+    </select>
+
+    <select id="selectByStatusNos" parameterType="Object" resultMap="handoverOrder">
+        select * from henglong.handover_order where status_no in
+        <foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="selectOne" parameterType="Integer" resultMap="handoverOrder">
+        select * from henglong.handover_order where id=#{id}
+    </select>
+
+    <select id="selectByUserId" parameterType="Integer" resultMap="handoverOrder">
+        select * from henglong.handover_order where user_id=#{userId}
+    </select>
+
+    <select id="selectByAssetId" parameterType="Integer" resultMap="handoverOrder">
+        select * from henglong.handover_order where find_in_set (#{assetId}, asset_ids)
+    </select>
+
+    <select id="search" parameterType="Object" resultMap="handoverOrder">
+        select * from henglong.handover_order where 1 =1
+        <if test="assetIds!=null">
+            and (
+            <foreach item="item" index="index" collection="assetIds" separator="or">
+                FIND_IN_SET ( #{item} ,asset_ids)
+            </foreach>
+            )
+        </if>
+        <if test="transferTeam!=''">
+            <if test="flag!=1">
+                and transfer_team=#{transferTeam}
+            </if>
+            <if test="flag==1">
+                and (transfer_team=#{transferTeam} or accept_team=#{transferTeam})
+            </if>
+        </if>
+        <if test="acceptTeam!=''">
+            and accept_team=#{acceptTeam}
+        </if>
+        <if test="userId!=null">
+            and user_id=#{userId}
+        </if>
+    </select>
+
+    <select id="selectByTeam" parameterType="String" resultMap="handoverOrder">
+        select * from henglong.handover_order where transfer_team=#{team} or accept_team=#{team}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" parameterType="HandoverOrder">
+        insert into henglong.handover_order (user_id, asset_ids, transfer_team, accept_team, transfer_date,status_no,add_time) values (
+        #{userId},#{assetIds},#{transferTeam},#{acceptTeam},#{transferDate},#{statusNo},#{addTime} )
+    </insert>
+
+    <update id="update" parameterType="HandoverOrder">
+        update henglong.handover_order set asset_ids=#{assetIds},transfer_team=#{transferTeam},accept_team=#{acceptTeam},
+        transfer_date=#{transferDate},status_no=#{statusNo},update_time=#{updateTime} where id=#{id}
+    </update>
+
+    <update id="setStatusNo" parameterType="HandoverOrder">
+        update henglong.handover_order set status_no=#{statusNo},update_time=#{updateTime} where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete from henglong.handover_order where id=#{id}
+    </delete>
+</mapper>

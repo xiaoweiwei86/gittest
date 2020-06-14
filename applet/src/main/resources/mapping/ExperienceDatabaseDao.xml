@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chl.applet.dao.ExperienceDatabaseDao">
+    <resultMap id="experienceDatabase" type="ExperienceDatabase">
+        <id property="id" column="id" javaType="Integer"/>
+        <result property="userId" column="user_id"/>
+        <association property="user" select="com.chl.applet.dao.UserDao.selectOne" column="user_id"/>
+    </resultMap>
+    <select id="selectAll" resultMap="experienceDatabase">
+        select * from henglong.jysjk
+    </select>
+
+    <select id="selectOneById" parameterType="Integer" resultMap="experienceDatabase">
+        select * from henglong.jysjk where id=#{id}
+    </select>
+
+    <select id="selectByUserId" parameterType="Integer" resultMap="experienceDatabase">
+        select * from henglong.jysjk where user_id=#{userId}
+    </select>
+
+    <select id="selectByTeamId" parameterType="Integer" resultMap="experienceDatabase">
+        select * from henglong.jysjk where audit=#{audit}
+        <if test="teamId!=null">
+            and user_id in (select id from henglong.user where team_id=#{teamId})
+        </if>
+    </select>
+
+    <select id="selectCheckNum" parameterType="Integer" resultType="Integer">
+        select COUNT(*) from henglong.jysjk where audit=2
+        <if test="teamId!=null">
+            and user_id in (select id from henglong.user where team_id=#{teamId})
+        </if>
+    </select>
+
+    <select id="selectByKeywords" parameterType="Object" resultMap="experienceDatabase">
+        select * from henglong.jysjk where 1=1
+        <if test="keywords!=''">
+            and (title like concat("%",#{keywords},"%") or
+            product_class like concat("%",#{keywords},"%")or
+            product_model like concat("%",#{keywords},"%") or
+            failure_mode like concat("%",#{keywords},"%") or
+            position_fault like concat("%",#{keywords},"%") or
+            problem_input like concat("%",#{keywords},"%") or
+            prime_piece like concat("%",#{keywords},"%") or
+            prime_category like concat("%",#{keywords},"%") or
+            entry_person like concat("%",#{keywords},"%") or
+            position_phase like concat("%",#{keywords},"%"))
+        </if>
+        <if test="startTime!='' and endTime!=''">
+            and entry_date between #{startTime} and #{endTime}
+        </if>
+        <if test="audit!=null">
+            and audit =#{audit}
+        </if>
+        <if test="userId!=null">
+            and user_id =#{userId}
+        </if>
+    </select>
+
+    <select id="selectChecked" parameterType="String" resultMap="experienceDatabase">
+        select * from henglong.jysjk where audit=1
+        <if test="teamId!=null">
+            and user_id in (select id from henglong.user where team_id=#{teamId})
+        </if>
+        <if test="keywords!=''">
+            and (title like concat("%",#{keywords},"%") or
+            product_class like concat("%",#{keywords},"%")or
+            product_model like concat("%",#{keywords},"%") or
+            failure_mode like concat("%",#{keywords},"%") or
+            position_fault like concat("%",#{keywords},"%") or
+            problem_input like concat("%",#{keywords},"%") or
+            prime_piece like concat("%",#{keywords},"%") or
+            prime_category like concat("%",#{keywords},"%") or
+            entry_person like concat("%",#{keywords},"%") or
+            position_phase like concat("%",#{keywords},"%"))
+        </if>
+        <if test="startTime!='' and endTime!=''">
+            and entry_date between #{startTime} and #{endTime}
+        </if>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" parameterType="ExperienceDatabase">
+        insert into henglong.jysjk (user_id,title, product_class, product_model, problem_description, failure_mode, position_fault, amount, date_string, problem_input,
+        reason_analysis, prime_piece, prime_category, temporary_improvement_measures, formal_improvement_measures, entry_person, entry_date, alter_date,
+        recommend, audit, position_phase, summary) values
+        (#{userId},#{title},#{productClass},#{productModel},#{problemDescription},#{failureMode},#{positionFault},#{amount},
+        #{dateString},#{problemInput},#{reasonAnalysis},#{primePiece},#{primeCategory},
+        #{temporaryImprovementMeasures},#{formalImprovementMeasures},#{entryPerson},#{entryDate},#{alterDate},
+        #{recommend},#{audit},#{positionPhase},#{summary})
+    </insert>
+
+    <update id="update" parameterType="ExperienceDatabase">
+        update henglong.jysjk set user_id=#{userId},
+         title =#{title},product_class=#{productClass},product_model=#{productModel},problem_description=#{problemDescription},failure_mode=#{failureMode},
+        position_fault=#{positionFault},amount=#{amount},date_string=#{dateString},problem_input=#{problemInput},reason_analysis=#{reasonAnalysis},prime_piece=#{primePiece},
+        prime_category=#{primeCategory} ,temporary_improvement_measures=#{temporaryImprovementMeasures} ,formal_improvement_measures=#{formalImprovementMeasures},
+        alter_date=#{alterDate} ,recommend=#{recommend},audit=#{audit} ,position_phase=#{positionPhase} ,summary=#{summary}
+        where id=#{id}
+    </update>
+
+    <delete id="delete" parameterType="Integer">
+        delete from henglong.jysjk where id=#{id}
+    </delete>
+</mapper>

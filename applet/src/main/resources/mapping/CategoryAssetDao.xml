@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.4//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chl.applet.dao.CategoryAssetDao">
+
+    <select id="selectAll" resultType="CategoryAsset">
+        select * from henglong.category_asset
+    </select>
+
+    <select id="selectOne" parameterType="Integer" resultType="CategoryAsset">
+        select * from henglong.category_asset where id=#{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" parameterType="CategoryAsset">
+        insert into henglong.category_asset(name, type) VALUES (#{name},#{type})
+    </insert>
+
+    <update id="update" parameterType="CategoryAsset">
+        update henglong.category_asset set name=#{name},type=#{type} where id=#{id}
+    </update>
+    <delete id="delete" parameterType="Integer">
+        delete from henglong.category_asset where id=#{id}
+    </delete>
+</mapper>
