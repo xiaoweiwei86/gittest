@@ -8,7 +8,7 @@
     </resultMap>
 
     <select id="selectAll" resultMap="user">
-        select * from henglong.user
+        select * from userlist
     </select>
 
     <select id="selectOne" parameterType="Integer" resultMap="user">
